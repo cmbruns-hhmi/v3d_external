@@ -51,6 +51,8 @@ Na3DWidget::Na3DWidget(QWidget* parent)
     resetView();
     setVolCompress(false); // might look nicer?
 
+    setAutoFillBackground(false); // needed for combining 2D and 3D rendering in paintEvent()
+
     // This method for eliminating tearing artifacts works but is supposedly obsolete;
     // http://stackoverflow.com/questions/5174428/how-to-change-qglformat-for-an-existing-qglwidget-at-runtime
     // valgrind has some complaints about the context
@@ -1827,6 +1829,53 @@ void Na3DWidget::paintFiducial(const Vector3D& v) {
       glVertex3f(x0,y0,z0+dd1);
       glVertex3f(x0,y0,z0+dd2);
     glEnd();
+}
+
+/* virtual */
+void Na3DWidget::paintEvent(QPaintEvent *event)
+{
+    {
+        // 3D rendering
+        updateGL();
+    }
+
+    if (true)
+    {
+        // 2D rendering overlay
+        QPainter painter(this);
+
+        bool bDrawScaleBar = true;
+        if (bDrawScaleBar) {
+            const QColor bgColor = QColor(0, 0, 0, 128); // transparent black background
+            const QColor fgColor = QColor(180, 180, 180, 255); // solid white foreground
+            int borderWidth = 3;
+            int barHeight = 8;
+            int barWidth = 100;
+            int labelHeight = 15;
+            int labelSep = 0;
+            QFont font = QFont("Times");
+            font.setPixelSize(labelHeight);
+            // Background square for contrast
+            int x = width() - barWidth - 2*borderWidth - 20;
+            int w = barWidth + 2*borderWidth;
+            int h = 2*borderWidth + barHeight + labelHeight + labelSep;
+            int y = height() - h - 20;
+            painter.fillRect(x, y, w, h, bgColor);
+            // Scale bar itself
+            x += borderWidth;
+            y += borderWidth;
+            w = barWidth;
+            h = barHeight;
+            painter.fillRect(x, y, w, h, fgColor);
+            // Label
+            y += labelHeight + barHeight + labelSep;
+            painter.setPen(fgColor);
+            painter.setFont(font);
+            painter.drawText(x, y, QString::fromUtf8("10 μm"));
+        }
+
+        painter.end();
+    }
 }
 
 void Na3DWidget::paintGL()

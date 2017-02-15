@@ -180,6 +180,7 @@ protected:
     static int round(double d);
     static bool anglesAreEqual(int a1, int a2); // in degrees
     virtual void paintGL();
+    virtual void paintEvent(QPaintEvent *event);
 
     // Nov 2012
     // Move paint functions from RendererNeuronAnnotator into Na3DWidget,
