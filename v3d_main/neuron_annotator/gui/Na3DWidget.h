@@ -169,6 +169,7 @@ protected slots:
 
 public:
     QElapsedTimer widgetStopwatch;
+    float xVoxelSizeInMicrons;
 
 protected:
     // bool tryUpdateFullVolume();

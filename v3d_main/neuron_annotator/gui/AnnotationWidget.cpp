@@ -239,6 +239,7 @@ void AnnotationWidget::openAnnotatedBranch(AnnotatedBranch *annotatedBranch, boo
                     if ((x > 0.0) && (z/x > 0.0)) {
                         naMainWindow->getDataFlowModel()->setZRatio(z/x);
                         naMainWindow->get3DWidget()->setThickness(z/x);
+                        naMainWindow->get3DWidget()->xVoxelSizeInMicrons = x;
                     }
                 }
             }
