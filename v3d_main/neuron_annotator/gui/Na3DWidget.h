@@ -121,6 +121,11 @@ public slots:
     void resetRotation();
     void translateImage(int dx, int dy);
     void showCrosshair(bool b) {NaViewer::showCrosshair(b); update();}
+    void showScaleBar(bool b) {
+        if (bPaintScaleBar == b) return;
+        bPaintScaleBar = b;
+        update();
+    }
     void updateHighlightNeurons();
     void onMouseSingleClick(QPoint pos);
     void onNotSingleClick();
@@ -170,6 +175,7 @@ protected slots:
 public:
     QElapsedTimer widgetStopwatch;
     float xVoxelSizeInMicrons;
+    bool bPaintScaleBar;
 
 protected:
     // bool tryUpdateFullVolume();

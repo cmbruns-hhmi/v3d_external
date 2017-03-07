@@ -41,6 +41,7 @@ Na3DWidget::Na3DWidget(QWidget* parent)
         , globalScreenPosX(0)
         , globalScreenPosY(0)
         , xVoxelSizeInMicrons(0)
+        , bPaintScaleBar(true)
 {
     if (renderer) {
         delete renderer;
@@ -1845,8 +1846,7 @@ void Na3DWidget::paintEvent(QPaintEvent *event)
         // 2D rendering overlay
         QPainter painter(this);
 
-        bool bDrawScaleBar = true;
-        if (bDrawScaleBar) {
+        if (bPaintScaleBar) {
             // 1 - set scale bar parameters
             const QColor bgColor = QColor(0, 0, 0, 128); // transparent black background
             const QColor fgColor = QColor(180, 180, 180, 255); // solid white foreground
