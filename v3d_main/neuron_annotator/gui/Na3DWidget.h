@@ -10,6 +10,7 @@
 #include "NeuronContextMenu.h"
 #include "Stereo3dMode.h"
 #include "../render/ActorGL.h"
+#include "ScaleBar.h"
 #include "boost/shared_ptr.hpp"
 #include <stdint.h>
 
@@ -243,6 +244,8 @@ protected:
 
     mutable Vector3D cachedDefaultFocus;
     mutable bool cachedDefaultFocusIsDirty;
+
+    ScaleBar scaleBar;
 
     // Nov 2012 ActorGL architecture
 public:
