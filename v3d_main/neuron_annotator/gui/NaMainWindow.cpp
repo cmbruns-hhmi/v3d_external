@@ -1926,6 +1926,9 @@ void NaMainWindow::setDataFlowModel(DataFlowModel* dataFlowModelParam)
         return;
     }
 
+    connect(dataFlowModel, SIGNAL(zRatioChanged(double)),
+            ui->zThicknessDoubleSpinBox, SLOT(setValue(double)));
+
     connect(this, SIGNAL(subsampleLabelPbdFileNamed(QUrl)),
             &dataFlowModel->getVolumeTexture(), SLOT(setLabelPbdFileUrl(QUrl)));
 
